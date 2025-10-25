@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:store_app/models/product_model.dart';
 import 'package:store_app/services/all_product_service.dart';
 import 'package:store_app/widgets/product.dart';
 
@@ -33,7 +32,31 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(child: Product()),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 120.0, left: 120),
+        child: FutureBuilder(
+          future: AllProductService().getAllProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<ProductModel>? products = snapshot.data;
+              return GridView.builder(
+                itemCount: products?.length ?? 0,
+                clipBehavior: Clip.none,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 20,
+                  childAspectRatio: 1 / 1.2,
+                ),
+                itemBuilder: (context, index) {
+                  return Product(product: products![index]);
+                },
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ),
     );
   }
 }

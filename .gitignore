@@ -22,6 +22,18 @@ migrate_working_dir/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+# Dart & Flutter
+.dart_tool/
+.idea/
+.vscode/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Assets folder (if you don’t want to include it)
+assets/
 
 # Flutter/Dart/Pub related
 **/doc/api/
